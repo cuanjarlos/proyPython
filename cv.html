@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV Juan Carlos Castillo</title>
+    <style>
+        :root {
+            --sidebar-bg: #2c3e50; /* Azul oscuro elegante */
+            --sidebar-text: #ecf0f1;
+            --main-bg: #ffffff;
+            --text-main: #333;
+            --accent: #3498db; /* Azul Viewnext */
+            --titles: #2c3e50;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #555; /* Fondo gris solo para visualizar en navegador */
+            font-size: 13px; /* Tamaño ideal para 1 página */
+            line-height: 1.4;
+        }
+
+        /* Hoja A4 exacta */
+        .page {
+            width: 21cm;
+            min-height: 29.7cm;
+            margin: 0 auto;
+            background: white;
+            display: grid;
+            grid-template-columns: 32% 68%; /* 1/3 para barra lateral, 2/3 contenido */
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+
+        /* --- BARRA LATERAL (IZQUIERDA) --- */
+        .sidebar {
+            background-color: var(--sidebar-bg);
+            color: var(--sidebar-text);
+            padding: 25px 20px;
+            text-align: left;
+        }
+
+        .photo-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .photo-container img {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            border: 4px solid rgba(255,255,255,0.2);
+            object-fit: cover;
+        }
+
+        .sidebar h2 {
+            font-size: 14px;
+            text-transform: uppercase;
+            border-bottom: 1px solid rgba(255,255,255,0.3);
+            padding-bottom: 5px;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+            color: var(--accent);
+        }
+
+        /* Contacto */
+        .contact-item {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            font-size: 12px;
+        }
+        .contact-icon { margin-right: 10px; font-size: 14px; }
+
+        /* Formación y Skills en barra lateral */
+        .edu-block { margin-bottom: 15px; }
+        .edu-degree { font-weight: bold; font-size: 12px; color: #fff; }
+        .edu-school { font-style: italic; color: #bdc3c7; font-size: 11px; }
+        .edu-date { font-size: 11px; color: #bdc3c7; }
+
+        .skill-list { list-style: none; padding: 0; }
+        .skill-list li { 
+            margin-bottom: 6px; 
+            font-size: 12px; 
+            border-bottom: 1px solid rgba(255,255,255,0.1); 
+            padding-bottom: 2px;
+        }
+        .skill-tag { font-weight: bold; color: #fff; }
+
+        /* --- CONTENIDO PRINCIPAL (DERECHA) --- */
+        .main-content {
+            background-color: var(--main-bg);
+            padding: 30px 30px;
+            color: var(--text-main);
+        }
+
+        .header-name h1 {
+            margin: 0;
+            font-size: 32px;
+            color: var(--titles);
+            text-transform: uppercase;
+            line-height: 1;
+        }
+
+        .header-name h3 {
+            margin: 5px 0 20px 0;
+            font-size: 16px;
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        .section-title {
+            font-size: 15px;
+            font-weight: bold;
+            color: var(--titles);
+            text-transform: uppercase;
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 5px;
+            margin-top: 20px;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        /* Texto Perfil */
+        .profile-text { text-align: justify; font-size: 13px; margin-bottom: 20px; }
+
+        /* Proyectos y Experiencia */
+        .item-block { margin-bottom: 15px; }
+        
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 3px;
+        }
+        
+        .item-title { font-weight: bold; font-size: 14px; color: #2c3e50; }
+        .item-date { font-size: 12px; color: #7f8c8d; font-style: italic; }
+        .item-subtitle { color: var(--accent); font-weight: 600; font-size: 12px; margin-bottom: 3px; display: block; }
+
+        .item-desc { 
+            margin: 0; 
+            padding-left: 18px; 
+            font-size: 12.5px;
+        }
+        .item-desc li { margin-bottom: 2px; }
+
+        /* AJUSTES DE IMPRESIÓN */
+        @page {
+            margin: 0;
+            size: A4;
+        }
+        @media print {
+            body { background: white; -webkit-print-color-adjust: exact; }
+            .page { width: 100%; height: auto; box-shadow: none; margin: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="page">
+        <aside class="sidebar">
+            <div class="photo-container">
+                <img src="foto.jpg" alt="Foto Juan Carlos">
+            </div>
+
+            <h2>Contacto</h2>
+            <div class="contact-item"><span class="contact-icon">📍</span> Molina de Segura, Murcia</div>
+            <div class="contact-item"><span class="contact-icon">📞</span> 601 389 123</div>
+            <div class="contact-item"><span class="contact-icon">✉️</span> codjccp@gmail.com</div>
+
+            <h2>Formación</h2>
+            <div class="edu-block">
+                <div class="edu-degree">DAW (Desarrollo Apps Web)</div>
+                <div class="edu-school">IES Francisco de Goya</div>
+                <div class="edu-date">2024 – Actualidad</div>
+            </div>
+            <div class="edu-block">
+                <div class="edu-degree">Desarrollo Front-End</div>
+                <div class="edu-school">Adalid Formación (Intensivo)</div>
+                <div class="edu-date">2024</div>
+            </div>
+            <div class="edu-block">
+                <div class="edu-degree">Administración y Finanzas</div>
+                <div class="edu-school">IES Cañada de las Eras</div>
+                <div class="edu-date">2019 – 2021</div>
+            </div>
+
+            <h2>Skills Técnicas</h2>
+            <ul class="skill-list">
+                <li><span class="skill-tag">JAVA (Backend):</span><br>POO, Colecciones, Estructuras.</li>
+                <li><span class="skill-tag">PHP & Laravel:</span><br>MVC, Blade, Backend web.</li>
+                <li><span class="skill-tag">Web Frontend:</span><br>HTML5, CSS3, JS, Bootstrap.</li>
+                <li><span class="skill-tag">Bases de Datos:</span><br>MySQL, Consultas, Relaciones.</li>
+                <li><span class="skill-tag">Herramientas:</span><br>Git, Postman, AWS (Básico).</li>
+            </ul>
+
+            <h2>Idiomas</h2>
+            <ul class="skill-list">
+                <li><span class="skill-tag">INGLÉS C1</span><br>Certificado EOI (Sobresaliente)</li>
+                <li><span class="skill-tag">ESPAÑOL</span><br>Nativo</li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <div class="header-name">
+                <h1>Juan Carlos Castillo</h1>
+                <h3>Desarrollador Web Junior | Java & PHP</h3>
+            </div>
+
+            <div class="profile-text">
+                Desarrollador de Aplicaciones Web en formación con <strong>Nivel C1 de Inglés Certificado</strong>. Combino mi formación técnica en programación (Java/PHP) con experiencia previa en gestión administrativa, lo que me permite comprender la lógica de negocio y los flujos de datos (ERP). Busco iniciar mis prácticas en Viewnext aportando disciplina, capacidad de análisis y competencia bilingüe.
+            </div>
+
+            <div class="section-title">Proyectos Académicos</div>
+            
+            <div class="item-block">
+                <div class="item-header">
+                    <span class="item-title">Gestión de Inventario (CRUD Web)</span>
+                </div>
+                <span class="item-subtitle">PHP (Laravel) | MySQL | Bootstrap</span>
+                <ul class="item-desc">
+                    <li>Desarrollo de aplicación full-stack para gestión de altas/bajas.</li>
+                    <li>Implementación de autenticación y diseño responsive.</li>
+                </ul>
+            </div>
+
+            <div class="item-block">
+                <div class="item-header">
+                    <span class="item-title">Algoritmia y Lógica de Negocio</span>
+                </div>
+                <span class="item-subtitle">Java SE (Standard Edition) | POO</span>
+                <ul class="item-desc">
+                    <li>Resolución de problemas complejos aplicando POO estricta.</li>
+                    <li>Uso eficiente de estructuras de datos en memoria.</li>
+                </ul>
+            </div>
+
+            <div class="section-title">Experiencia Laboral</div>
+
+            <div class="item-block">
+                <div class="item-header">
+                    <span class="item-title">Guía Educativo (Bilingüe)</span>
+                    <span class="item-date">Mar 2025 – Ene 2026</span>
+                </div>
+                <span class="item-subtitle">Terra Natura</span>
+                <ul class="item-desc">
+                    <li>Gestión de grupos en <strong>Inglés</strong> y Español.</li>
+                    <li>Resolución de incidencias y trato con cliente internacional.</li>
+                </ul>
+            </div>
+
+            <div class="item-block">
+                <div class="item-header">
+                    <span class="item-title">Personal de Restauración</span>
+                    <span class="item-date">May 2025 – Nov 2025</span>
+                </div>
+                <span class="item-subtitle">McDonald's (Alta Demanda)</span>
+                <ul class="item-desc">
+                    <li>Trabajo por objetivos y cumplimiento de tiempos (SLA).</li>
+                    <li>Trabajo en equipo bajo situaciones de alta presión.</li>
+                </ul>
+            </div>
+
+            <div class="item-block">
+                <div class="item-header">
+                    <span class="item-title">Administrativo Contable</span>
+                    <span class="item-date">May 2024 – Nov 2024</span>
+                </div>
+                <span class="item-subtitle">Frutas Cañavate</span>
+                <ul class="item-desc">
+                    <li>Gestión de facturación con <strong>ERP NCS</strong> y BBDD internas.</li>
+                    <li>Optimización de procesos administrativos (Visión de Negocio).</li>
+                </ul>
+            </div>
+        </main>
+    </div>
+
+</body>
+</html>

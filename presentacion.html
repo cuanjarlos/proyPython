@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Economía Circular Móviles</title>
+    <style>
+        :root {
+            --accent-color: #00e5ff; /* Azul cian brillante */
+            --text-color: #ffffff;
+            --data-color: #ffd700; /* Amarillo dorado para los datos */
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #000;
+        }
+
+        /* FONDO */
+        #bg-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            z-index: 0;
+            transition: background-image 0.6s ease-in-out;
+            filter: blur(3px);
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7); /* Oscuro para contraste */
+            z-index: 1;
+        }
+
+        /* CONTENIDO */
+        #slide-container {
+            z-index: 2;
+            width: 85%;
+            max-width: 1200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        h1 {
+            font-size: 4.5rem;
+            margin-bottom: 10px;
+            color: var(--accent-color);
+            text-shadow: 4px 4px 15px rgba(0,0,0,0.9);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        h2 {
+            font-size: 3rem;
+            margin-bottom: 30px;
+            border-bottom: 4px solid var(--accent-color);
+            display: inline-block;
+            padding-bottom: 10px;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.9);
+            color: #fff;
+        }
+
+        p {
+            font-size: 2rem;
+            color: var(--text-color);
+            line-height: 1.5;
+            max-width: 1000px;
+            text-shadow: 2px 2px 8px rgba(0,0,0,1);
+            font-weight: 500;
+            margin: 10px 0;
+        }
+
+        /* ESTILOS PARA LOS DATOS EXTRA (NUEVO) */
+        .data-box {
+            background: rgba(255, 255, 255, 0.15);
+            border-left: 6px solid var(--data-color);
+            padding: 15px 30px;
+            margin-top: 30px;
+            border-radius: 0 10px 10px 0;
+            backdrop-filter: blur(10px);
+            display: inline-block;
+            text-align: left;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .data-text {
+            font-size: 1.4rem;
+            color: #f0f0f0;
+            display: block;
+            margin: 5px 0;
+        }
+
+        .data-highlight {
+            color: var(--data-color);
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        .big-icon {
+            font-size: 6rem;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 10px rgba(0,0,0,0.8));
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* GRÁFICO */
+        .chart-container {
+            display: flex;
+            align-items: flex-end;
+            gap: 50px;
+            height: 200px;
+            margin-top: 40px;
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 15px;
+            backdrop-filter: blur(5px);
+        }
+        .bar {
+            width: 80px;
+            background: white;
+            text-align: center;
+            font-weight: bold;
+            color: black;
+            border-radius: 5px 5px 0 0;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding-bottom: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.5);
+        }
+        .bar.circular { background: var(--accent-color); }
+        
+        .warning { color: #ff5252; font-weight: bold; }
+        .highlight { color: var(--accent-color); font-weight: bold; }
+
+        .nav-hint {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 1rem;
+            color: rgba(255,255,255,0.5);
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="bg-image"></div>
+    <div class="overlay"></div>
+
+    <div id="slide-container">
+        </div>
+
+    <div class="nav-hint">Usa ⬅️ ➡️ para navegar</div>
+
+    <script>
+        // MANTENIENDO TUS URLs QUE FUNCIONAN + AÑADIENDO DATOS
+        const slides = [
+            {
+                // Portada
+                bg: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1920&q=80",
+                html: `
+                    <div class="big-icon">📱 ♻️</div>
+                    <h1>Economía Circular</h1>
+                    <p>En teléfonos móviles</p>
+                    <div class="data-box">
+                        <span class="data-text">Generamos <span class="data-highlight">53 Millones de Toneladas</span> de basura electrónica al año.</span>
+                    </div>
+                `
+            },
+            {
+                // 1. Lineal
+                bg: "https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?auto=format&fit=crop&w=1920&q=80",
+                html: `
+                    <h2>1. El Modelo Lineal</h2>
+                    <div class="big-icon">🗑️</div>
+                    <p>Extraer ➡️ Fabricar ➡️ Usar ➡️ <span class="warning">Tirar</span></p>
+                    <div class="data-box">
+                        <span class="data-text">📉 Vida media actual: <span class="data-highlight">18 meses</span>.</span>
+                        <span class="data-text">⚠️ Tasa de reciclaje: <span class="data-highlight">Solo 17.4%</span>.</span>
+                    </div>
+                `
+            },
+            {
+                // 2. Circular (URL mantenida)
+                bg: "https://images.unsplash.com/photo-1473448912268-2022ce9509d8?auto=format&fit=crop&w=1920&q=80",
+                html: `
+                    <h2>2. El Modelo Circular</h2>
+                    <div class="big-icon">🔄</div>
+                    <p>Cerrar el bucle</p>
+                    <p>El residuo se convierte en recurso: <span class="highlight">Reparación y Reutilización</span>.</p>
+                    <div class="data-box">
+                        <span class="data-text">💎 Minería Urbana: <span class="data-highlight">x100 más oro</span> en un móvil que en una mina.</span>
+                        <span class="data-text">🎯 Objetivo: Alargar uso <span class="data-highlight">+5 años</span>.</span>
+                    </div>
+                `
+            },
+            {
+                // 3. Principios
+                bg: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1920&q=80",
+                html: `
+                    <h2>3. Principios Clave</h2>
+                    <div style="font-size: 1.8rem; text-align: left; background: rgba(0,0,0,0.5); padding: 30px; border-radius: 15px;">
+                        <p>🌱 1. Diseñar sin residuos (Ecodiseño).</p>
+                        <p>🛠️ 2. Mantener productos en uso (Reparación).</p>
+                        <p>🌍 3. Regenerar sistemas naturales.</p>
+                    </div>
+                `
+            },
+            {
+                // 4. Beneficios
+                bg: "https://images.unsplash.com/photo-1466611653911-95081537e5b7?auto=format&fit=crop&w=1920&q=80",
+                html: `
+                    <h2>4. Beneficios</h2>
+                    <div class="chart-container">
+                        <div style="text-align:center"><div class="bar" style="height: 150px;">$$$</div><br><small>Lineal</small></div>
+                        <div style="text-align:center"><div class="bar circular" style="height: 80px;">$</div><br><small>Circular</small></div>
+                    </div>
+                    <div class="data-box">
+                        <span class="data-text">💰 Ahorro usuario: <span class="data-highlight">~100€/año</span>.</span>
+                        <span class="data-text">🌫️ Emisiones CO2: <span class="data-highlight">-45%</span>.</span>
+                    </div>
+                `
+            },
+            {
+                // 5. Ciclo de Vida (URL mantenida)
+                bg: "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=1920&q=80",
+                html: `
+                    <h2>5. Ciclo de Vida</h2>
+                    <div class="big-icon">🏭</div>
+                    <h1 style="color:var(--text-color)">80%</h1>
+                    <p>Del impacto ambiental ocurre en la <strong>FABRICACIÓN</strong>.</p>
+                    <div class="data-box">
+                        <span class="data-text">🧪 <span class="data-highlight">60 materiales</span> químicos distintos.</span>
+                        <span class="data-text">💧 <span class="data-highlight">12.760 Litros</span> de agua por móvil.</span>
+                    </div>
+                `
+            },
+            {
+                // 6. Problemas Diseño
+                bg: "https://images.unsplash.com/photo-1596558450268-9c27524ba856?auto=format&fit=crop&w=1920&q=80",
+                html: `
+                    <h2>6. El problema del Diseño</h2>
+                    <div class="big-icon">🧩 🚫</div>
+                    <p class="warning">Pegamento vs Tornillos</p>
+                    <div class="data-box">
+                        <span class="data-text">🔒 <strong>Serialización:</strong> Bloqueo de piezas por software.</span>
+                        <span class="data-text">⚠️ Baterías pegadas = <span class="data-highlight">Obsolescencia forzada</span>.</span>
+                    </div>
+                `
+            },
+            {
+                // 7. Normativa
+                bg: "https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&w=1920&q=80",
+                html: `
+                    <h2>7. Normativa</h2>
+                    <div class="big-icon">🇪🇺 ⚖️</div>
+                    <p><strong>"Derecho a Reparar"</strong></p>
+                    <div class="data-box">
+                        <span class="data-text">🏷️ <strong>Índice de Reparabilidad:</strong> Obligatorio.</span>
+                        <span class="data-text">🔌 <strong>USB-C Único:</strong> Estándar universal.</span>
+                    </div>
+                `
+            },
+            {
+                // Conclusión
+                bg: "https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?auto=format&fit=crop&w=1920&q=80",
+                html: `
+                    <div class="big-icon">✨</div>
+                    <h1>El futuro es Circular</h1>
+                    <p>"El móvil más sostenible es el que ya tienes."</p>
+                    <p style="margin-top: 50px; font-size: 1.5rem;">Muchas gracias.</p>
+                `
+            }
+        ];
+
+        let currentSlide = 0;
+        const container = document.getElementById('slide-container');
+        const bgImage = document.getElementById('bg-image');
+
+        function renderSlide() {
+            container.style.opacity = 0;
+            
+            setTimeout(() => {
+                container.innerHTML = slides[currentSlide].html;
+                bgImage.style.backgroundImage = `url('${slides[currentSlide].bg}')`;
+                container.style.opacity = 1;
+            }, 300);
+        }
+
+        function nextSlide() {
+            if (currentSlide < slides.length - 1) {
+                currentSlide++;
+                renderSlide();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                renderSlide();
+            }
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') nextSlide();
+            if (e.key === 'ArrowLeft') prevSlide();
+        });
+
+        // Precargar imágenes
+        slides.forEach(slide => {
+            new Image().src = slide.bg;
+        });
+
+        renderSlide();
+    </script>
+</body>
+</html>
