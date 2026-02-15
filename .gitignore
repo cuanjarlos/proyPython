@@ -1,0 +1,19 @@
+Ignorar imágenes
+
+*.jpg
+*.png
+*.gif
+
+Ignorar archivos HTML 
+
+*.html
+
+Ignorar archivos de registro y temporales
+
+*.log
+pycache/
+.vscode/
+
+Ignorar el archivo de datos JSON (opcional, si no quieres que tus datos personales se suban)
+
+plantilla.json
